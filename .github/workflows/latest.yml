@@ -54,6 +54,7 @@ jobs:
       - name: Run a one-line script
         run:  |
             make install-requirements
+            sudo apt install bats
             make end-to-end-tests
 
   macos:
