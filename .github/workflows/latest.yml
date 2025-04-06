@@ -52,7 +52,9 @@ jobs:
         run: ./container_build.sh build ramalama
 
       - name: Run a one-line script
-        run: make end-to-end-tests
+        run:  |
+            install-requirements
+            make end-to-end-tests
 
   macos:
     runs-on: macos-14

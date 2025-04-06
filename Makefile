@@ -167,7 +167,7 @@ unit-tests:
 	PYTHONPATH=. pytest test/unit/
 
 .PHONY: end-to-end-tests
-end-to-end-tests: install-requirements validate bats bats-nocontainer ci
+end-to-end-tests: validate bats bats-nocontainer ci
 	make clean
 	hack/tree_status.sh
 
