@@ -53,7 +53,7 @@ jobs:
 
       - name: Run a one-line script
         run:  |
-            install-requirements
+            make install-requirements
             make end-to-end-tests
 
   macos:
