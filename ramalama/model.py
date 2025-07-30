@@ -20,6 +20,7 @@ from ramalama.common import (
     perror,
     set_accel_env_vars,
 )
+from ramalama.compose import Compose
 from ramalama.config import CONFIG, DEFAULT_PORT, DEFAULT_PORT_RANGE
 from ramalama.console import should_colorize
 from ramalama.engine import Engine, dry_run
@@ -721,6 +722,15 @@ class Model(ModelBase):
                 exec_args,
                 args.generate.output_dir,
             )
+        elif args.generate.gen_type == "compose":
+            self.compose(
+                (model_src_path, model_dest_path),
+                (chat_template_src_path, chat_template_dest_path),
+                (mmproj_src_path, mmproj_dest_path),
+                args,
+                exec_args,
+                args.generate.output_dir,
+            )
 
     def execute_command(self, exec_args, args):
         try:
@@ -774,6 +784,10 @@ class Model(ModelBase):
     def kube(self, model_paths, chat_template_paths, mmproj_paths, args, exec_args, output_dir):
         kube = Kube(self.model_name, model_paths, chat_template_paths, mmproj_paths, args, exec_args)
         kube.generate().write(output_dir)
+
+    def compose(self, model_paths, chat_template_paths, mmproj_paths, args, exec_args, output_dir):
+        compose = Compose(self.model_name, model_paths, chat_template_paths, mmproj_paths, args, exec_args)
+        compose.generate().write(output_dir)
 
     def inspect(self, args):
         self.ensure_model_exists(args)
